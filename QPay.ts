@@ -3,8 +3,11 @@ class Qpay{
     constructor() {
         // define fields stored to state trie.
         LocalContractStorage.defineMapProperties(this, {
-            height: null,
-            width: null,
+            walletAddress_UserInfo: null,
+            idNumber: null,
+            userName:null,
+            sumAccountCount:null,
+
         });
     }
 
