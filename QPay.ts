@@ -1,16 +1,23 @@
 class Qpay{
     
-    constructor() {
-        // define fields stored to state trie.
+    constructor() {        // define fields stored to state trie.
+        LocalContractStorage.defineProperties(this, {
+            sumAccountCount:null,
+        });
         LocalContractStorage.defineMapProperties(this, {
             walletAddress_UserInfo: null,
             idNumber: null,
             userName:null,
-            sumAccountCount:null,
-
+            
+            
         });
     }
 
+    register(){
+        var from = Blockchain.transaction.from;
+        var tmpSumAccountCount = this.sumAccountCount;
+        
+    }
     // init function.
     init(height, width) {
         this.height = height;
