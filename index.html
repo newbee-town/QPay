@@ -2,13 +2,21 @@
 <html>
 <head>
 <title>文档的标题</title>
+<link rel="stylesheet" href="https://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css">
+<script src="https://cdn.bootcss.com/jquery/2.1.1/jquery.min.js"></script>
+<script src="https://cdn.bootcss.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 <style>
 
+
 .whole_div {width: 1080px;margin: auto auto}
-#parent_ul {width: 200px;margin: 0 0;height: 600px;overflow-y: auto;}
-#parent_ul li {width: 100%;list-style: none; height: 50px;vertical-align: middle;line-height: 50px;}
+
+#account_div {width: 100%;height: 45px;line-height: 45px;text-align: center;}
+#parent_ul {margin: 0 0;height: 600px;overflow-y: auto;}
+#parent_ul li {width: 100%;list-style: none; height: 45px;vertical-align: middle;}
 #parent_ul li a {width: 100%;margin: 20px 0}
 .blank20 {width: 100%;height: 20px;}
+.blank30 {width: 100%;height: 30px;}
+.blank45 {width: 100%;height: 45px;}
 .blank50 {width: 100%;height: 50px;}
 .ordi_div {width: 100%;text-align: center}
 #tab_ul {width: 50%;min-width: 720px;min-width: 1080px;height: 60px;margin: auto auto;}
@@ -50,9 +58,16 @@
 
 <body>
 <div class="whole_div">
-    <ul id="parent_ul">
-        <li>aaa</li>
-        <li class="blank50" style="background-color: deepskyblue"></li>
+    <div class="row">
+    <div class="col-md-3" >
+    <div id="account_div"><span class="glyphicon glyphicon-user"></span> 账户</div>
+    <div class="blank45" style="background-color: deepskyblue"></div>
+    <ul class="list-group parent_ul" id="parent_ul">
+        <li class="list-group-item"></li>
+        <li class="list-group-item"></li>
+        <li class="list-group-item"></li>
+        <li class="list-group-item"></li>
+        <li class="list-group-item li5"><span class="badge">新</span> aaa</li>
         <li>aaa</li>
         <li>aaa</li>
         <li>aaa</li>
@@ -66,6 +81,78 @@
         <li>aaa</li>
         <li>aaa</li>
     </ul>
+    </div>
+
+    <div class="col-md-8 " style="background-color: aqua;height: 800px;">
+        <div class="row">
+            <div class="col-md-5"></div>
+            <div class="col-md-1"><span class="glyphicon glyphicon-user" style="font-size: 30px;"></span></div>
+            <div class="col-md-1"><span class="glyphicon glyphicon-star-empty" style="font-size: 30px;"></span></div>
+            <div class="col-md-5"></div>
+        </div>
+        <div class="row blank45"></div>
+        <div class="row">
+            <div class="col-md-1"></div>
+            <div class="col-md-1"></div>
+            <div class="col-md-10">
+                <div class="row" style="font-weight: bold;">林继强</div>
+                <div class="row">QPay号：01000000</div>
+                <div class="row">钱包地址：nfko4495ndll4592ndf4gh</div>
+            </div>
+        </div>
+        <div class="row blank45"></div>
+        <div class="row blank45"></div>
+
+        <div class="row blank30">
+            <div class="col-md-2"></div>
+            <div class="col-md-6" style="line-height: 30px">链上余额(NAS):45 </div>
+        </div>
+        <div class="row blank30">
+            <div class="col-md-2"></div>
+            <div class="col-md-2"><button>提取</button></div>
+        </div>
+        <div class="row blank45"></div>
+        <div class="row blank45"></div>
+        <div class="row blank45"></div>
+        <div class="row blank30">
+            <div class="col-md-4"></div>
+            <div class="col-md-4" style="height: 100%;"><button style="width: 100%;height: 100%;">退出登录</button></div>
+        </div>
+    </div>
+    <div class="col-md-8 " style="background-color: aqua;height: 800px;display: none;">
+        <div class="row">
+            <div class="col-md-5"></div>
+            <div class="col-md-1"><span class="glyphicon glyphicon-user" style="font-size: 30px;"></span></div>
+            <div class="col-md-1"><span class="glyphicon glyphicon-star-empty" style="font-size: 30px;"></span></div>
+            <div class="col-md-5"></div>
+        </div>
+        <div class="row blank45"></div>
+        <div class="row">
+            <div class="col-md-1"></div>
+            <div class="col-md-1"></div>
+            <div class="col-md-10">
+                <div class="row" style="font-weight: bold;">林继强</div>
+                <div class="row">QPay号：01000000</div>
+                <div class="row">钱包地址：nfko4495ndll4592ndf4gh</div>
+            </div>
+        </div>
+        <div class="row blank45"></div>
+        <div class="row blank45"></div>
+        <div class="row blank45"></div>
+        <div class="row blank30">
+            <div class="col-md-2"></div>
+            <div class="col-md-2" style="text-align: right; line-height: 30px">转账(NAS): </div>
+            <div class="col-md-6">
+                <div class="input-group">
+                    <input type="text" class="form-control">
+                    <span class="input-group-btn">
+                        <button class="btn btn-default" type="button">Go!</button>
+                    </span>
+                </div>
+            </div>
+        </div>
+    </div>
+    </div>
 </div>
 
 </body>
