@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
+<title>文档的标题</title>
+<link rel="stylesheet" href="https://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css">
+<script src="https://cdn.bootcss.com/jquery/2.1.1/jquery.min.js"></script>
+<script src="https://cdn.bootcss.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+<style>
+
+
+.whole_div {width: 1080px;margin: auto auto}
+
+#account_div {width: 100%;height: 45px;line-height: 45px;text-align: center;}
+#parent_ul {margin: 0 0;height: 600px;overflow-y: auto;}
+#parent_ul li {width: 100%;list-style: none; height: 45px;vertical-align: middle;}
+#parent_ul li a {width: 100%;margin: 20px 0}
+.blank20 {width: 100%;height: 20px;}
+.blank30 {width: 100%;height: 30px;}
+.blank45 {width: 100%;height: 45px;}
+.blank50 {width: 100%;height: 50px;}
+.ordi_div {width: 100%;text-align: center}
+#tab_ul {width: 50%;min-width: 720px;min-width: 1080px;height: 60px;margin: auto auto;}
+.tab_ul_li_up {list-style-type: none; float: left; width: 49%;text-align: center;border: 1px solid lightgray;height: 50px;background-color:lightgrey;}
+.tab_ul_li_down {list-style-type: none; float: left; width: 49%;text-align: center;border: 1px solid lightgray;border-bottom: 0; height: 50px;}
+#get_div {width: 49%;min-width: 720px;min-width: 1080px;height: 60px;margin: auto auto;background-color: lightcoral;display: none;}
+#donate_div {width: 49%;min-width: 720px;min-width: 1080px;height: 60px;margin: auto auto;background-color:lawngreen;overflow-y: auto;}
+
+#get_textarea {width: 60%;height: 150px;font-family: monospace;font-size: 16px;margin: auto auto;}
+#get_submit_button {width: 150px;height: 40px;font-family: monospace;font-size: 16px;margin: auto auto;}
+</style>
+<script type="text/javascript">
+    function gbid(id){
+        return document.getElementById(id);
+    }
+    function setClassNameById(id, class_name){
+        gbid(id).className = class_name;
+    }
+    function setOnclickFuncById(id, func){
+        gbid(id).onclick = func;
+    }
+    function input_focus(event){
+        el = event.target;
+        el.value = "";
+        el.style.color=black;
+    }
+
+    window.onload = function(){
+    gbid('get_button').onclick = function(){alert('a');};
+    setOnclickFuncById('get_button', function(){
+        setClassNameById('get_button', 'tab_ul_li_down');
+        setClassNameById('donate_button', 'tab_ul_li_up');
+        gbid('get_div').style.display = 'block';
+        gbid('donate_div').style.display = 'none';
+        });
+    setOnclickFuncById('donate_button', function(){
+        setClassNameById('donate_button', 'tab_ul_li_down');
+        setClassNameById('get_button', 'tab_ul_li_up');
+        gbid('donate_div').style.display = 'block';
+        gbid('get_div').style.display = 'none';
+        });
+    };
+</script>
+</head>
+
+<body>
+<div class="whole_div">
+    <div class="row blank30">
+        <div class="col-md-4"></div>
+        <div class="col-md-4" style="height: 100%;display: none"><button style="width: 100%;height: 100%;">退出登录</button></div>
+        <div class="col-md-4" style="height: 100%;">
+            <div class="row">
+                <input type="text" class="form-control" onfocus="input_focus(event)" value="昵称">
+            </div>
+            <div class="row blank20" ></div>
+            <div class="row">
+                <input type="text" class="form-control" onfocus="input_focus(event)" value="密码">
+            </div>
+            <div class="row blank30"></div>
+            <div class="row">
+                <button style="width: 100%;height: 100%;">注册</button>
+            </div>
+        </div>
+    </div>
+
+   
+</div>
+
+</body>
+
+</html>
