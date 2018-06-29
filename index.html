@@ -11,10 +11,12 @@
 
 .whole_div {width: 980px;margin: 30px auto;border: 1px solid grey}
 
-#account_div {width: 100%;height: 45px;line-height: 45px;text-align: center;}
+#account_div {width: 100%;height: 45px;line-height: 45px;text-align: center;border-right:1px solid lightgray}
 #parent_ul {margin: 0 0;height: 410px;overflow-y: auto;background-color: lightgray}
 #parent_ul li {width: 100%;list-style: none; height: 45px;vertical-align: middle;}
 #parent_ul li a {width: 100%;margin: 20px 0}
+.blank5 {width: 100%;height: 5px;}
+.blank15 {width: 100%;height: 15px;}
 .blank20 {width: 100%;height: 20px;}
 .blank30 {width: 100%;height: 30px;}
 .blank45 {width: 100%;height: 45px;}
@@ -29,6 +31,11 @@
 #get_textarea {width: 60%;height: 150px;font-family: monospace;font-size: 16px;margin: auto auto;}
 #get_submit_button {width: 150px;height: 40px;font-family: monospace;font-size: 16px;margin: auto auto;}
 </style>
+<script src="./js/nebPay.js"></script>
+<script src="./js/state.js"></script>
+<script src="./js/qlib.js"></script>
+<script src="./js/transfer.js"></script>
+<script src="./js/viewEvent.js"></script>
 <script src="./js/account.js"></script>
 <script type="text/javascript">
     var j_contract_address = "n1tn1QZNF4Mgm238ac2cEYxrY2opNRGvse2";
@@ -59,7 +66,18 @@
     <div class="row">
     <div class="col-md-3" >
     <div id="account_div"><span class="glyphicon glyphicon-user"></span> 账户</div>
-    <div class="blank45" style="background-color: deepskyblue"></div>
+    <div class="blank45" style="background-color: rgb(60, 139, 163)">
+        <div class="row blank5"></div>
+        <div class="row blank5"></div>
+        <div class="row blank15">
+            <div class="col-md-4"></div>
+            <div class="col-md-7">
+                <button>+添加朋友</button>
+            </div>
+        </div>
+
+        <div class="row blank15"></div>
+    </div>
     <ul class="list-group parent_ul" id="parent_ul">
         <li class="list-group-item"></li>
         <li class="list-group-item"></li>
@@ -70,7 +88,7 @@
     </ul>
     </div>
 
-    <div id="user_info_div" class="col-md-8 " style="background-color: aqua;height: 500px;">
+    <div id="user_info_div" class="col-md-8 " style="background-color: aqua;height: 500px;display: none;">
         <div class="row">
             <div class="col-md-5"></div>
             <div class="col-md-1"><span class="glyphicon glyphicon-user" style="font-size: 30px;"></span></div>
@@ -111,7 +129,7 @@
             <div class="col-md-10">
                 <div class="row" style="font-weight: bold;" id="f_note_name">林继强</div>
                 <div class="row" id="f_id_number">QPay号：01000000</div>
-                <div class="row" id="f_wallent_address">钱包地址：nfko4495ndll4592ndf4gh</div>
+                <div class="row" id="f_wallet_address">钱包地址：nfko4495ndll4592ndf4gh</div>
             </div>
         </div>
         <div class="row blank45"></div>
@@ -122,13 +140,53 @@
             <div class="col-md-2" style="text-align: right; line-height: 30px">转账(NAS): </div>
             <div class="col-md-6">
                 <div class="input-group">
-                    <input type="text" class="form-control">
+                    <input type="text" class="form-control" id="f_transfer_input">
                     <span class="input-group-btn">
-                        <button class="btn btn-default" type="button">Go!</button>
+                        <button class="btn btn-default" type="button" onclick="friendTransferConfirm()">确认</button>
                     </span>
                 </div>
             </div>
             
+        </div>
+    </div>
+    <div id="add_friend_div" class="col-md-8 " style="background-color: aqua;height: 500px;">
+        <div class="row">
+            <div class="col-md-5"></div>
+            <div class="col-md-1"><span class="glyphicon glyphicon-user" style="font-size: 30px;"></span></div>
+            <div class="col-md-1"><span class="glyphicon glyphicon-star-empty" style="font-size: 30px;"></span></div>
+            <div class="col-md-5"></div>
+        </div>
+        <div class="row blank45"></div>
+        <div class="row blank30">
+            <div class="col-md-2"></div>
+            <div class="col-md-9">
+                <div class="input-group">
+                    <input type="text" class="form-control" id="f_transfer_input">
+                    <span class="input-group-btn">
+                        <button class="btn btn-default" type="button" onclick="friendTransferConfirm()"><span class="glyphicon glyphicon-search"></span></button>
+                    </span>
+                </div>
+            </div>
+            
+        </div>
+        <div class="row blank45"></div>
+        <div class="row">
+            <div class="col-md-2"></div>
+            <div class="col-md-2"></div>
+            <div class="col-md-8">
+                <div class="row" style="font-weight: bold;" id="f_note_name">林继强</div>
+                <div class="row" id="f_id_number">QPay号：01000000</div>
+                <div class="row" id="f_wallet_address">钱包地址：nfko4495ndll4592ndf4gh</div>
+            </div>
+        </div>
+        <div class="row blank45"></div>
+        <div class="row blank30">
+            <div class="col-md-2"></div>
+            <div class="col-md-2" style="text-align: right; line-height: 30px; font-size: 15px">设置昵称: </div>
+            <div class="col-md-4">
+                <input type="text" class="form-control" id="f_transfer_input">
+            </div>
+            <div class="col-md-2"><button class="btn btn-default">添加好友</button></div>
         </div>
     </div>
     </div>

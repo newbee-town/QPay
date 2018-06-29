@@ -36,6 +36,9 @@ var loginFunc = function(resp){
 
         gbid('f_wallet_address').innerHTML = fi.address;
         gbid('f_id_number').innerHTML = fi.idNumber;
+    
+        currentFriend = fi;
+        
     };
     for(var i =0;i<friendList.length;i++){
         
@@ -44,8 +47,8 @@ var loginFunc = function(resp){
         nli.className = "list-group-item";
         nli.value = i;
         nli.style.textAlign = "center";
+        nli.style.cursor = "pointer";
         nli.onclick = function(){ 
-            alert(this.value);
             nliClick(testJ.friend[this.value]);
         };
         nli.innerHTML = friendInfo.noteName;
@@ -83,6 +86,7 @@ function qLogin(){
 
             gbid('f_wallet_address').innerHTML = fi.address;
             gbid('f_id_number').innerHTML = fi.idNumber;
+            currentFriend = fi;
         };
         for(var i =0;i<friendList.length;i++){
             var friendInfo = friendList[i];
