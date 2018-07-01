@@ -20,17 +20,21 @@ QPay.prototype =  {
     init: function(){
         this.sumAccountCount = 0;
     },
-    register: function(){
+    register: function(user_name, pw){
         var from = Blockchain.transaction.from;
-        var tmpSumAccountCount = this.sumAccountCount;
-        this.idNumber.put(tmpSumAccountCount, from);
-        this.walletAddress_UserInfo.put(from, {"idNumber":tmpSumAccountCount, "address":from, "userName":null, "friend":[]});
-        tmpSumAccountCount++;
-        this.sumAccountCount = tmpSumAccountCount;
-        this.questionLuckyMoneyList.put(from, []);
-        this.questionLuckyMoneyRecord.put(from, []);
-        this.questionLuckyMoneyCount.put(from, 0);
-        return true;
+        if(this.walletAddress_UserInfo.get(from)!=null)
+            return false;
+        else{
+            var tmpSumAccountCount = this.sumAccountCount;
+            this.idNumber.put(tmpSumAccountCount, from);
+            this.walletAddress_UserInfo.put(from, {"idNumber":tmpSumAccountCount, "address":from, "userName":user_name, "password":pw, "friend":[]});
+            tmpSumAccountCount++;
+            this.sumAccountCount = tmpSumAccountCount;
+            this.questionLuckyMoneyList.put(from, []);
+            this.questionLuckyMoneyRecord.put(from, []);
+            this.questionLuckyMoneyCount.put(from, 0);
+            return true;
+        }
     },
 
     login: function(){
@@ -38,7 +42,7 @@ QPay.prototype =  {
         var from = Blockchain.transaction.from;
         if(value<1)
             throw new Error("login error");
-        return this.walletAddress_UserInfo(from);
+        return this.walletAddress_UserInfo.get(from);
     },
 
     setUserName: function(user_name){
@@ -48,17 +52,44 @@ QPay.prototype =  {
         return true;
     },
 
-    addFriend: function(f_address){
+    id2address: function(id_number){
+        return this.idNumber.get(id_number);
+    },
+
+    getUserInfoByAddress: function(address){
+        var userInfo = this.walletAddress_UserInfo.get(address);
+        if(userInfo==null)
+            if(Blockchain.verifyAddress(address)==87)
+                return {"idNumber":"该用户未注册", "address":address, "userName":""};
+            else
+                return null;
+        else
+            return {"idNumber":userInfo.idNumber, "address":address, "userName":userInfo.userName};
+    },
+    getUserInfoById: function(id_number){
+        var address = this.id2address(id_number);
+        if(address == null)
+            return null;
+        else
+            return this.getUserInfoByAddress(address);
+    },
+
+    addFriend: function(f_address, note_name){
         var from = Blockchain.transaction.from;
         var r = this.relation.get(from+'_'+f_address);
         if(r!=null)
             return ("You have been friend!");
         else{
         var userInfo = this.walletAddress_UserInfo.get(from);
-        userInfo.friend.push({"address":f_address, "noteName":null});
+        var f_info = this.walletAddress_UserInfo.get(f_address);
+        if(f_info==null)
+            userInfo.friend.push({"address":f_address,"idNumber":"","userName":"", "noteName":note_name});
+        else
+            userInfo.friend.push({"address":f_address,"idNumber":userInfo.idNumber,"userName":userInfo.userName, "noteName":note_name});
         this.walletAddress_UserInfo.set(from, userInfo);
         this.relation.put(from+"_"+f_address, "true");
         return true;
+        
         }
     },
 

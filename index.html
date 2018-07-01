@@ -11,9 +11,10 @@
 
 .whole_div {width: 980px;margin: 30px auto;border: 1px solid grey}
 
-#account_div {width: 100%;height: 45px;line-height: 45px;text-align: center;border-right:1px solid lightgray}
+#account_div {cursor: pointer;width: 100%;height: 45px;line-height: 45px;text-align: center;border-right:1px solid lightgray}
 #parent_ul {margin: 0 0;height: 410px;overflow-y: auto;background-color: lightgray}
-#parent_ul li {width: 100%;list-style: none; height: 45px;vertical-align: middle;}
+#parent_ul li {width: 100%;list-style: none; height: 45px;vertical-align: middle;cursor: pointer;}
+#parent_ul li:hover{width: 100%;list-style: none; height: 45px;vertical-align: middle; cursor: pointer;background-color:#d5eeee}
 #parent_ul li a {width: 100%;margin: 20px 0}
 .blank5 {width: 100%;height: 5px;}
 .blank15 {width: 100%;height: 15px;}
@@ -27,10 +28,15 @@
 .tab_ul_li_down {list-style-type: none; float: left; width: 49%;text-align: center;border: 1px solid lightgray;border-bottom: 0; height: 50px;}
 #get_div {width: 49%;min-width: 720px;min-width: 1080px;height: 60px;margin: auto auto;background-color: lightcoral;display: none;}
 #donate_div {width: 49%;min-width: 720px;min-width: 1080px;height: 60px;margin: auto auto;background-color:lawngreen;overflow-y: auto;}
+.headDivButton{text-align: center;font-size: 16px;font-weight: bold;line-height: 100%;padding-top: 10px;padding-bottom: 10px;border: 1px solid lightgray;background-color: lightsteelblue;cursor: pointer;}
+.headDivButton:hover{background-color:#d5eeee;}
+
+
 
 #get_textarea {width: 60%;height: 150px;font-family: monospace;font-size: 16px;margin: auto auto;}
 #get_submit_button {width: 150px;height: 40px;font-family: monospace;font-size: 16px;margin: auto auto;}
 </style>
+<script src="./js/nebulas.js"></script>
 <script src="./js/nebPay.js"></script>
 <script src="./js/state.js"></script>
 <script src="./js/qlib.js"></script>
@@ -38,7 +44,7 @@
 <script src="./js/viewEvent.js"></script>
 <script src="./js/account.js"></script>
 <script type="text/javascript">
-    var j_contract_address = "n1tn1QZNF4Mgm238ac2cEYxrY2opNRGvse2";
+    
 
     function gbid(id){
         return document.getElementById(id);
@@ -49,51 +55,47 @@
     function setOnclickFuncById(id, func){
         gbid(id).onclick = func;
     }
-    function input_focus(event){
-        el = event.target;
-        el.value = "";
-        el.style.color=black;
-    }
+
 
     window.onload = function(){
-        loginFunc(testJ);
+        viewInit();
+        //$('#login_div').modal('show');
+        //loginFunc(testJ);
     };
 </script>
 </head>
 
 <body>
-<div class="whole_div">
+<div style="text-align: center"><img src="qpay.png" width="350px" alt=""></div>
+<div class="whole_div" >
     <div class="row">
     <div class="col-md-3" >
-    <div id="account_div"><span class="glyphicon glyphicon-user"></span> 账户</div>
+    <div id="account_div" onclick="showMainDiv('user_info_div')"><span class="glyphicon glyphicon-user"></span> 账户</div>
     <div class="blank45" style="background-color: rgb(60, 139, 163)">
         <div class="row blank5"></div>
         <div class="row blank5"></div>
         <div class="row blank15">
             <div class="col-md-4"></div>
             <div class="col-md-7">
-                <button>+添加朋友</button>
+                <button onclick="showMainDiv('add_friend_div')">+添加朋友</button>
             </div>
         </div>
 
         <div class="row blank15"></div>
     </div>
     <ul class="list-group parent_ul" id="parent_ul">
-        <li class="list-group-item"></li>
-        <li class="list-group-item"></li>
-        <li class="list-group-item"></li>
-        <li class="list-group-item"></li>
-        <li class="list-group-item li5"><span class="badge">新</span> aaa</li>
+
+       <!-- <li class="list-group-item li5"><span class="badge">新</span> aaa</li>-->
 
     </ul>
     </div>
 
-    <div id="user_info_div" class="col-md-8 " style="background-color: aqua;height: 500px;display: none;">
+    <div id="user_info_div" class="col-md-8 " style="height: 500px;display: none;">
         <div class="row">
-            <div class="col-md-5"></div>
-            <div class="col-md-1"><span class="glyphicon glyphicon-user" style="font-size: 30px;"></span></div>
-            <div class="col-md-1"><span class="glyphicon glyphicon-star-empty" style="font-size: 30px;"></span></div>
-            <div class="col-md-5"></div>
+            <div class="col-md-1"></div>
+            <div class="col-md-5 headDivButton">账号信息</div>
+            <div class="col-md-5 headDivButton" onclick="alert('即将开发完成，敬请期待！')">问答红包</div>
+            <div class="col-md-1"></div>
         </div>
         <div class="row blank45"></div>
         <div class="row">
@@ -111,16 +113,17 @@
         <div class="row blank45"></div>
         <div class="row blank30">
             <div class="col-md-4"></div>
-            <div class="col-md-4" style="height: 100%;"><button style="width: 100%;height: 100%;">退出登录</button></div>
+            <div class="col-md-4" style="height: 100%;"><button style="width: 100%;height: 100%;" id="user_info_button" onclick="userInfoButtonClick()">退出登录</button></div>
         </div>
-
+        <div class="row blank45"></div>
+        <div class="row blank30" style="text-align: center"><a target="blank" href="./help.html">帮助</a></div>
     </div>
-    <div id="friend_info_div" class="col-md-8 " style="background-color: aqua;height: 500px;display: none;">
+    <div id="friend_info_div" class="col-md-8 " style="height: 500px;display: none;">
         <div class="row">
-            <div class="col-md-5"></div>
-            <div class="col-md-1"><span class="glyphicon glyphicon-user" style="font-size: 30px;"></span></div>
-            <div class="col-md-1"><span class="glyphicon glyphicon-star-empty" style="font-size: 30px;"></span></div>
-            <div class="col-md-5"></div>
+            <div class="col-md-1"></div>
+            <div class="col-md-5 headDivButton">账号信息</div>
+            <div class="col-md-5 headDivButton"  onclick="alert('即将开发完成，敬请期待！')">问答红包</div>
+            <div class="col-md-1"></div>
         </div>
         <div class="row blank45"></div>
         <div class="row">
@@ -149,49 +152,79 @@
             
         </div>
     </div>
-    <div id="add_friend_div" class="col-md-8 " style="background-color: aqua;height: 500px;">
+    <div id="add_friend_div" class="col-md-8 " style="height: 500px;">
         <div class="row">
-            <div class="col-md-5"></div>
-            <div class="col-md-1"><span class="glyphicon glyphicon-user" style="font-size: 30px;"></span></div>
-            <div class="col-md-1"><span class="glyphicon glyphicon-star-empty" style="font-size: 30px;"></span></div>
-            <div class="col-md-5"></div>
+
         </div>
         <div class="row blank45"></div>
         <div class="row blank30">
             <div class="col-md-2"></div>
             <div class="col-md-9">
                 <div class="input-group">
-                    <input type="text" class="form-control" id="f_transfer_input">
+                    <input type="text" class="form-control" id="af_input" value="QPay号/钱包地址" onfocus="input_focus(event, 'QPay号/钱包地址')" >
                     <span class="input-group-btn">
-                        <button class="btn btn-default" type="button" onclick="friendTransferConfirm()"><span class="glyphicon glyphicon-search"></span></button>
+                        <button class="btn btn-default" type="button" onclick="afFindFriendButtonClick()"><span class="glyphicon glyphicon-search"></span></button>
                     </span>
                 </div>
             </div>
             
         </div>
-        <div class="row blank45"></div>
+        <div class="row blank45">
+            <div class="col-md-4"></div>
+            <div class="col-md-4" id="af_info_query_state"></div>
+            <div class="col-md-4"></div>
+        </div>
         <div class="row">
             <div class="col-md-2"></div>
             <div class="col-md-2"></div>
             <div class="col-md-8">
-                <div class="row" style="font-weight: bold;" id="f_note_name">林继强</div>
-                <div class="row" id="f_id_number">QPay号：01000000</div>
-                <div class="row" id="f_wallet_address">钱包地址：nfko4495ndll4592ndf4gh</div>
+                <div class="row" style="font-weight: bold;" id="af_info_user_name">昵称：林继强</div>
+                <div class="row" id="af_info_id_number">QPay号：01000000</div>
+                <div class="row" id="af_info_wallet_address">钱包地址：nfko4495ndll4592ndf4gh</div>
             </div>
         </div>
         <div class="row blank45"></div>
         <div class="row blank30">
             <div class="col-md-2"></div>
-            <div class="col-md-2" style="text-align: right; line-height: 30px; font-size: 15px">设置昵称: </div>
+            <div class="col-md-2" style="text-align: right; line-height: 30px; font-size: 15px">设置备注: </div>
             <div class="col-md-4">
-                <input type="text" class="form-control" id="f_transfer_input">
+                <input type="text" class="form-control" id="af_note_name_input">
             </div>
-            <div class="col-md-2"><button class="btn btn-default">添加好友</button></div>
+            <div class="col-md-2"><button class="btn btn-default" onclick="afAddFriendButtonClick()">添加好友</button></div>
         </div>
     </div>
     </div>
 </div>
-
+<div class="modal fade" id="login_div">
+    <div class="modal-dialog" style="margin:100px auto">
+        <div class="modal-content">
+            <div class="modal-body">
+                <div class="row" style="text-align:center">根据浏览器插件钱包地址登陆账号</div>
+                <div class="row blank45"></div>
+                <div class="row">
+                    <div class="col-md-3"></div>
+                    <div class="col-md-6">
+                        <div class="progress progress-striped active" >
+                            <div id="login_info" class="progress-bar progress-bar-info" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="width: 100%;display:none;">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-3"></div>
+                </div>
+                <div class="row">
+                    <div class="col-md-5"></div>
+                    <div class="col-md-2">
+                        <button class="btn btn-default" id="login_button" onclick="loginButtonClick()">立即登陆</button>
+                    </div>
+                    <div class="col-md-5">
+                    </div>
+                </div>
+                <div class="row" style="text-align:center"><a href="./register.html">注册</a></div>
+            </div>
+        </div>
+    </div>
+</div>
+<div style="text-align: center">基于星云链<a href="https://nebulas.io/cn/">https://nebulas.io/cn/</a>,bug报告请在github上留言:<a href="https://github.com/newbee-town/QPay">https://github.com/newbee-town/QPay</a>,测试QPay账号:0</div>
 </body>
 
 </html>
